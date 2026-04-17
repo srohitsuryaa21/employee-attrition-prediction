@@ -9,8 +9,7 @@
 
 > **Capstone Project** — Google Data Analytics Professional Certificate, Coursera  
 > **Author:** Rohit Suryaa Saravanan  
-> **Programme:** MSc Data Science, Hochschule Fulda, Germany  
-> **Kaggle Notebook:** [View on Kaggle](https://www.kaggle.com/) ← *(replace with your link)*
+> **Programme:** MSc Data Science, Hochschule Fulda, Germany
 
 ---
 
