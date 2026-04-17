@@ -171,8 +171,6 @@ pip install -r requirements.txt
 jupyter notebook Employee_Attrition_Prediction_Rohit_Suryaa.ipynb
 ```
 
-Alternatively, view and run the notebook directly on Kaggle: [Kaggle Notebook Link](https://www.kaggle.com/) ← *(replace with your link)*
-
 ---
 
 ## Citation
@@ -190,6 +188,3 @@ Accessed: 2024. Fictional dataset created by IBM data scientists.
 **Rohit Suryaa Saravanan**  
 MSc Data Science — Hochschule Fulda, Germany  
 Google Data Analytics Professional Certificate — Coursera
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?logo=linkedin)](https://linkedin.com/)
-[![Kaggle](https://img.shields.io/badge/Kaggle-Profile-20BEFF?logo=kaggle)](https://www.kaggle.com/)
