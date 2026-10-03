@@ -15,7 +15,7 @@
 
 ## Abstract
 
-Employee attrition poses significant operational and financial challenges for organisations, with replacement costs estimated at 50–200% of an employee's annual salary. This project presents a comprehensive data-driven framework for predicting voluntary employee turnover using the IBM HR Analytics Employee Attrition & Performance dataset. Employing the Google Data Analytics APPASA methodology (Ask, Prepare, Process, Analyse, Share, Act), the study conducts systematic exploratory data analysis across 35 demographic, behavioural, and organisational features, followed by the development and evaluation of four supervised classification models. The best-performing ensemble model achieves an AUC-ROC score exceeding 0.85, demonstrating strong discriminatory power between employees who leave and those who remain. Findings indicate that overtime obligation, compensation level, and composite job satisfaction are the primary predictors of attrition, with actionable HR recommendations derived accordingly.
+Employee attrition poses significant operational and financial challenges for organisations, with replacement costs estimated at 50–200% of an employee's annual salary. This project presents a comprehensive data-driven framework for predicting voluntary employee turnover using the IBM HR Analytics Employee Attrition & Performance dataset. Employing the Google Data Analytics APPASA methodology (Ask, Prepare, Process, Analyse, Share, Act), the study conducts systematic exploratory data analysis across 35 demographic, behavioural, and organisational features, followed by the development and evaluation of four supervised classification models. On the original IBM data, the best model, logistic regression, reaches a test AUC-ROC of 0.80 (5-fold CV AUC 0.81), ahead of gradient boosting (0.78), random forest (0.77) and a decision tree (0.66). Findings indicate that overtime obligation, compensation level, and composite job satisfaction are the primary predictors of attrition, with actionable HR recommendations derived accordingly.
 
 ---
 
@@ -31,10 +31,7 @@ Employee attrition poses significant operational and financial challenges for or
 | **Class Imbalance** | ~16.1% positive (attrition = Yes) |
 | **Origin** | Fictional dataset created by IBM data scientists for HR research |
 
-> **Reproducibility note:** The notebook is fully self-contained via a synthetic data reconstruction that mirrors the original dataset's distributions exactly. To use the original CSV, replace the data-generation block with:
-> ```python
-> df = pd.read_csv('WA_Fn-UseC_-HR-Employee-Attrition.csv')
-> ```
+> **Data:** the notebook loads the original dataset from IBM's public GitHub copy (`IBM/employee-attrition-aif360`), so it runs anywhere without a Kaggle login. An earlier version generated a synthetic stand-in whose attrition labels were drawn independently of every feature, which capped every model near AUC 0.5; the results here come from the real data.
 
 ---
 
@@ -43,7 +40,7 @@ Employee attrition poses significant operational and financial challenges for or
 This study follows the **Google APPASA analytical framework**:
 
 ### Phase 1 — Ask
-Definition of the research problem, success metrics (target AUC ≥ 0.85), and stakeholder deliverables. Primary research questions:
+Definition of the research problem, success metrics (AUC-ROC, chosen because only 16.1% of employees left), and stakeholder deliverables. Primary research questions:
 - Which employees are most likely to leave, and why?
 - What is the probability of departure over the next employment period?
 - What organisational interventions would most effectively improve retention?
@@ -83,6 +80,17 @@ Five new features were derived from existing variables to improve model signal:
 
 ---
 
+## Results (original IBM data)
+
+| Model | Test AUC | 5-fold CV AUC |
+|-------|---------:|--------------:|
+| **Logistic Regression** | **0.798** | 0.808 ± 0.030 |
+| Gradient Boosting | 0.785 | 0.789 ± 0.029 |
+| Random Forest | 0.772 | 0.776 ± 0.031 |
+| Decision Tree | 0.663 | 0.624 ± 0.041 |
+
+The best model finds 36% of leavers in the test set (17 of 47) at 71% precision. Employees on overtime left at 30.5% against 10.4% without; sales representatives left at 39.8%.
+
 ## Models & Evaluation
 
 | Model | Configuration | Evaluation Metrics |
@@ -98,13 +106,13 @@ All models evaluated using: **AUC-ROC · Accuracy · 5-fold stratified cross-val
 
 ## Key Findings
 
-1. **OverTime** is the strongest single predictor of attrition — employees working overtime are approximately twice as likely to leave
+1. **OverTime** is the strongest single predictor of attrition: 30.5% of employees on overtime left, against 10.4% without
 2. **Monthly income** shows a significant inverse relationship with attrition; departing employees earn substantially below the median
 3. **Age** is negatively correlated with attrition risk — employees aged 20–35 represent the highest-risk demographic
-4. **Sales Representatives** and **Laboratory Technicians** exhibit the highest role-level attrition rates (>25%)
+4. **Sales Representatives** (39.8%) and **Laboratory Technicians** (23.9%) exhibit the highest role-level attrition rates
 5. **Composite satisfaction score** reliably discriminates between leavers and stayers across all satisfaction dimensions
-6. **Frequent business travel** is associated with approximately double the attrition rate of non-travel employees
-7. **Promotion gaps** exceeding three years show strong association with departure intent
+6. **Frequent business travel** is associated with about three times the attrition rate of non-travel employees (24.9% vs 8.0%)
+7. **Promotion gaps** over three years do *not* raise attrition in this data (13.1% vs 17.0%)
 8. **Single employees** churn at a meaningfully higher rate than married or divorced peers
 
 ---
